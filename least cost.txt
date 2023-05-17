@@ -1,0 +1,39 @@
+from pulp import *
+
+# Define the transportation problem data
+supply = [100, 150, 200]  # supply values
+demand = [130, 120, 100, 150]  # demand values
+costs = [
+    [5, 6, 8, 10],
+    [8, 12, 6, 11],
+    [10, 8, 7, 6]
+]  # transportation costs
+
+# Create the problem
+prob = LpProblem("Transportation Problem", LpMinimize)
+
+# Define decision variables
+routes = [(i, j) for i in range(len(supply)) for j in range(len(demand))]
+var = LpVariable.dicts("Route", (range(len(supply)), range(len(demand))), 0)
+
+# Define objective function
+prob += lpSum([var[i][j] * costs[i][j] for (i, j) in routes]), "Total Cost"
+
+# Define constraints
+# Supply constraints
+for i in range(len(supply)):
+    prob += lpSum([var[i][j] for j in range(len(demand))]) == supply[i], "Supply {}".format(i)
+
+# Demand constraints
+for j in range(len(demand)):
+    prob += lpSum([var[i][j] for i in range(len(supply))]) == demand[j], "Demand {}".format(j)
+
+# Solve the problem
+prob.solve()
+
+# Print the solution
+print("Total Cost = {}".format(value(prob.objective)))
+for v in prob.variables():
+    if v.varValue > 0:
+        print("{} = {}".format(v.name, v.varValue))
+

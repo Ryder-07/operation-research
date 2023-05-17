@@ -1,0 +1,63 @@
+demand=float(input("enter the demand "))
+cost = float(input("enter the cost"))
+cost_per_order=float(input("enter the oredering cost "))
+cost_of_holding=float(input("enter the holding cost "))#1.40 for 5 percent interest1
+
+EOQ=round(((2*demand*cost_per_order)/(cost_of_holding))**0.5,2)
+
+print("the EOQ for this is",EOQ)
+
+print("Total Number of orders are ",round(demand/EOQ,2))
+
+Total_annual_inventory_expense = round((demand/EOQ)*cost_per_order + EOQ/2 * cost_of_holding,2)
+
+print("Total annual inventory expenses are",Total_annual_inventory_expense)
+
+Total_Inventory_cost = demand*cost+Total_annual_inventory_expense
+
+print(f"totaal inventory cost is {Total_Inventory_cost}")
+
+
+
+
+
+
+
+
+my code
+
+
+import math
+print("For inventory model 1")
+dem1 = float(input("Enter demand: "))
+o_cost1 = float(input("Enter ordering cost: "))
+h_cost1 = float(input("Enter holding cost: "))
+p_cost1 = float(input("Enter cost price: "))
+eoq1 = math.sqrt((2*dem1*o_cost1)/(h_cost1))
+print("EOQ of inventory model 1:", eoq1)
+
+print("\nFor inventory model 2")
+dem_rate= float(input("Enter demand rate: "))
+days = int(input("Enter number of weeks: "))
+dem2 = dem_rate * days
+o_cost2 = float(input("Enter ordering cost: "))
+h_cost2 = float(input("Enter holding cost: "))
+eoq2 = math.sqrt((2*dem2*o_cost2)/(h_cost2))
+print("EOQ of inventory model 2:", eoq2)
+
+print("\nFor inventory model 3")
+dem3 = float(input("Enter demand: "))
+o_cost3 = float(input("Enter ordering cost: "))
+h_cost3 = float(input("Enter holding cost: "))
+s_cost3 = float(input("Enter shortage cost: "))
+eoq3 = math.sqrt(((2*dem3*o_cost3)/(h_cost3)) * ((h_cost3 + s_cost3) / (s_cost3)))
+print("EOQ of inventory model 3:", eoq3)
+
+print("\nFor inventory model 4")
+dem4 = float(input("Enter demand: "))
+prod4 = float(input("Enter production: "))
+o_cost4 = float(input("Enter ordering cost: "))
+h_cost4 = float(input("Enter holding cost: "))
+s_cost4 = float(input("Enter shortage cost: "))
+eoq4 = math.sqrt(((2*dem4*o_cost4)/(h_cost4) * ((prod4)/(prod4 - dem4)) * ((h_cost4 + s_cost4) / (s_cost4))))
+print("EOQ of inventory model 4:", eoq4)

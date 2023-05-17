@@ -1,0 +1,20 @@
+grid = [[7 ,8 ,1],[2 ,3 ,5],[6 , 7, 8]] # cost table
+supply = [40, 60, 30] # supply
+demand = [30, 30, 70] # demand
+#print(grid)
+
+startR = 0 # start row
+startC = 0 # start col
+ans = 0
+# loop runs untill it reaches the bottom right corner
+while(startR != len(grid) and startC != len(grid[0])):
+  if(supply[startR] <= demand[startC]):
+     ans += supply[startR] * grid[startR][startC]
+     demand[startC] -= supply[startR]
+     startR += 1
+  else:
+   ans += demand[startC] * grid[startR][startC]
+   supply[startR] -= demand[startC]
+   startC += 1
+
+print("the basic feasible basic solution is ", ans)

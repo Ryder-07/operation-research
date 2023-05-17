@@ -1,0 +1,23 @@
+import numpy as np
+
+running_cost = np.array([200, 500, 800, 1200, 1800, 2500, 3200, 4000])
+initial_cost = 12200
+scrap_value = 200
+period = np.array([1,2,3,4,5,6,7,8])
+
+crc = np.cumsum(running_cost)
+
+dc = initial_cost - scrap_value
+
+total_cost = crc + dc
+
+average_cost = total_cost / period
+
+        
+optimal_year = np.argmin(average_cost) + 1
+
+print("Cumulative Replacement Cost (CRC):", crc)
+print("Depreciation Cost (DC):", dc)
+print("Total Cost:", total_cost)
+print("Average Cost:", average_cost)
+print("Optimal Replacement Year:", optimal_year)

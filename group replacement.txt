@@ -1,0 +1,67 @@
+import numpy as np
+#For model 2
+print("For model 2")
+
+individualCost = 4
+groupCost = 0.3
+
+given=[30,25,20,15,10]
+ind=[30]
+for i in range(1,5):
+    temp=0
+    temp=given[i]-given[i-1]
+    ind.append(temp)
+print("Individual probabilities:", ind)
+
+sum=0
+for i in ind:
+    sum=sum+i
+prob=[]
+for i in range(0,5):
+    temp1=ind[i]/sum
+    prob.append(temp1)
+    
+n0=1000
+n1=n0*prob[0]
+n2=n0*prob[1]+n1*prob[0]
+n3=n0*prob[2]+n1*prob[1]+n2*prob[0]
+n4=n0*prob[3]+n1*prob[2]+n2*prob[1]+n3*prob[0]
+n5=n0*prob[4]+n1*prob[3]+n2*prob[2]+n3*prob[1]+n4*prob[0]
+num=[n1,n2,n3,n4,n5]
+print("Number of replacement at the end of week:", num)
+expected_life=0
+for i in range(1,6):
+    expected_life=expected_life+(i*prob[i-1])
+print("Expected Life is:", expected_life)
+
+avg_failure=1000/expected_life
+print("Average failure per week is :",avg_failure)
+
+individual_replacement=[100]
+for i in range(1,5):
+    temp3=num[i]+individual_replacement[i-1]
+    individual_replacement.append(temp3)
+total_cost=[]
+avg_cost=[]
+for i in range(0,5):
+    temp4=(individual_replacement[i]*2)+(1000*groupCost)
+    temp5=temp4/(i+1)
+    total_cost.append(temp4)
+    avg_cost.append(temp5)
+print("End of Week, Ind Rep, Total Cost, Avg Cost")
+for i in range(0,5):
+    print((i+1),
+    individual_replacement[i],
+    total_cost[i],
+    avg_cost[i])
+groupCost = min(avg_cost)
+print("Cost of group replacement:", groupCost)
+
+# Finding individual replacement cost
+individualCost=avg_failure*individualCost
+print("Cost of individual replacement is :",individualCost)
+
+if individualCost > groupCost:
+    print("Group replacement would be done")
+else:
+    print("Individual replacement would be done")
